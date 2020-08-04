@@ -6,6 +6,12 @@ Copied from Justin's Repo: [JDetmar](*https://gist.github.com/JDetmar/6e93dad09e
 
 Build a simple shopping cart that handles volume discounts.
 
+Language: C#
+
+Framework: .NET Core 3.1 or later
+
+Expected time to complete: less than two hours.
+
 **Introduction**
 
 Consider a store where items have prices per unit but also volume discount prices. For example, apples may be $1.00 each or 4 for $3.00.
