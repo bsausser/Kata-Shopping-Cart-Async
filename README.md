@@ -2,7 +2,7 @@
 Justin's Alliant Interviewee Project Submission Request
 
 ## Assignment
-Copied from Justin's Repo: [JDetmar](*https://gist.github.com/JDetmar/6e93dad09ee50afa3baece6bec1be4bb)
+Copied from Justin's Repo: [JDetmar](https://gist.github.com/JDetmar/6e93dad09ee50afa3baece6bec1be4bb)
 
 Build a simple shopping cart that handles volume discounts.
 
