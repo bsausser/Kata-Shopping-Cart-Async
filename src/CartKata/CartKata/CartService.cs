@@ -14,7 +14,7 @@ namespace CartKata
         {
             _productRepository = productRepo; // for eventual Dependency Injection
 
-            NewCart(); //instantiate the dictionary
+            NewCart(); //instantiate the cart
         }
 
         /// <summary>
