@@ -6,13 +6,13 @@ namespace CartKata
 {
     public class CartService : ICartService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
         private IList<Tuple<string, decimal>> _cart { get; set; } //IDictionary requires unique keys
 
-        public CartService()
+        public CartService(IProductRepository productRepo)
         {
-            _productRepository = new ProductRepository(); //instantiate Products List
+            _productRepository = productRepo; // for eventual Dependency Injection
 
             NewCart(); //instantiate the dictionary
         }
@@ -32,7 +32,9 @@ namespace CartKata
         public void Scan(string item)
         {
             if (String.IsNullOrWhiteSpace(item))
+            {
                 throw new ArgumentNullException(nameof(item));
+            }
 
             Product product = _productRepository.Get(item);
             if(product == null)
@@ -56,7 +58,9 @@ namespace CartKata
         public void Remove(string item)
         {
             if (String.IsNullOrWhiteSpace(item))
+            {
                 throw new ArgumentNullException(nameof(item));
+            }
 
             var lastItem = _cart.LastOrDefault(l => l.Item1.Equals(item));
 

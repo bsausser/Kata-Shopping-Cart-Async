@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace CartKata.Tests
@@ -9,10 +10,56 @@ namespace CartKata.Tests
 
         public CartTests()
         {
-            _cartService = new CartService();
+            IProductRepository mockProducts = new ProductRepository();
+            seedMockProducts(ref mockProducts);
+
+            _cartService = new CartService(mockProducts);
         }
 
-        #region - Cart Initializers -
+        #region - Product & Cart Initializers -
+        
+        private void seedMockProducts(ref IProductRepository mockProducts)
+        {
+            // A
+            mockProducts.Add(new Product()
+            {
+                Id = "A",
+                Prices = new List<Pricing>() {
+                    { new Pricing() { ProductId = "A", Price = 2m, Threshold = 0 } },
+                    { new Pricing() { ProductId = "A", Price = 1.75m, Threshold = 4 } }
+                }
+            });
+
+            // B
+            mockProducts.Add(new Product()
+            {
+                Id = "B",
+                Prices = new List<Pricing>() {
+                    { new Pricing() { ProductId = "B", Price = 12m, Threshold = 0 } }
+                }
+            });
+
+            // C
+            // Curious if the 7th threw 11th are $1.25 each until count = 12 (or a multiple of 6, e.g. % 6)
+            mockProducts.Add(new Product()
+            {
+                Id = "C",
+                Prices = new List<Pricing>() {
+                    { new Pricing() { ProductId = "C", Price = 1.25m, Threshold = 0 } },
+                    { new Pricing() { ProductId = "C", Price = 1m, Threshold = 6 } } // $6 / 6 items = $1.00
+                }
+            });
+
+            // D
+            mockProducts.Add(new Product()
+            {
+                Id = "D",
+                Prices = new List<Pricing>() {
+                    { new Pricing() { ProductId = "D", Price = 0.15m, Threshold = 0 } }
+                }
+            });
+        }
+
         private void initalize_Requirement_01()
         {
             _cartService.NewCart();
