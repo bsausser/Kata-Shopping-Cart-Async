@@ -1,0 +1,12 @@
+{
+  "ServerUri": "https://sonar.alliant.io/",
+  "Organization": null,
+  "ProjectKey": "sonarlint",
+  "ProjectName": "Prototypes.SonarLint",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AV6InAbixhk_nxqRtbrO",
+      "ProfileTimestamp": "2018-07-18T21:09:09Z"
+    }
+  }
+}

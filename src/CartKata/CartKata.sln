@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartKata", "CartKata\CartKata.csproj", "{45744F19-0B2F-4094-B886-2FE7EC280051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartKata.Tests", "CartKata.Tests\CartKata.Tests.csproj", "{DFF3E4F9-E324-4459-89BB-56AD7AADC6B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45744F19-0B2F-4094-B886-2FE7EC280051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45744F19-0B2F-4094-B886-2FE7EC280051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45744F19-0B2F-4094-B886-2FE7EC280051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45744F19-0B2F-4094-B886-2FE7EC280051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF3E4F9-E324-4459-89BB-56AD7AADC6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF3E4F9-E324-4459-89BB-56AD7AADC6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF3E4F9-E324-4459-89BB-56AD7AADC6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF3E4F9-E324-4459-89BB-56AD7AADC6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9621B70-17E7-4B01-B9A7-978966640719}
+	EndGlobalSection
+EndGlobal
