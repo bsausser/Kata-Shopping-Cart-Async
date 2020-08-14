@@ -1,0 +1,42 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore'
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'SonarQube Service Endpoint'
+    scannerMode: 'MSBuild'
+    projectKey: 'sonarlint'
+    projectName: 'Prototypes.SonarLint'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) '
+
+- task: SonarQubeAnalyze@4
+  displayName: "Run Code Analysis"
+
+- task: SonarQubePublish@4
+  displayName: "Publish Code Analysis"
+  inputs:
+    pollingTimeoutSec: '300'
