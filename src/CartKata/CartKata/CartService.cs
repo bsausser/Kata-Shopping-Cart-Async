@@ -96,7 +96,10 @@ namespace CartKata
             Pricing price = product.Prices.OrderBy(t => t.Threshold).Last(p => productCount >= p.Threshold);
 
             // Check if there is a need to update pricing in cart (including if an item has been removed, thus remove the discount)
-            Decimal currentPriceInCart = _cart.FirstOrDefault(c => c.Item1.Equals(product.Id)).Item2; //First will not throw an exception because productCount condition (line 71).
+            decimal currentPriceInCart = _cart
+                .FirstOrDefault(c => c.Item1.Equals(product.Id))
+                .Item2; //No possible exception because productCount condition (line 71).
+            
             if (!currentPriceInCart.Equals(price.Price))
             {
                 // Update all selected products in the cart with qualifying price

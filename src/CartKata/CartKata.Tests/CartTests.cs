@@ -25,8 +25,8 @@ namespace CartKata.Tests
             {
                 Id = "A",
                 Prices = new List<Pricing>() {
-                    { new Pricing() { ProductId = "A", Price = 2m, Threshold = 0 } },
-                    { new Pricing() { ProductId = "A", Price = 1.75m, Threshold = 4 } }
+                    new Pricing() { ProductId = "A", Price = 2m, Threshold = 0 },
+                    new Pricing() { ProductId = "A", Price = 1.75m, Threshold = 4 }
                 }
             });
 
@@ -35,7 +35,7 @@ namespace CartKata.Tests
             {
                 Id = "B",
                 Prices = new List<Pricing>() {
-                    { new Pricing() { ProductId = "B", Price = 12m, Threshold = 0 } }
+                    new Pricing() { ProductId = "B", Price = 12m, Threshold = 0 }
                 }
             });
 
@@ -45,8 +45,8 @@ namespace CartKata.Tests
             {
                 Id = "C",
                 Prices = new List<Pricing>() {
-                    { new Pricing() { ProductId = "C", Price = 1.25m, Threshold = 0 } },
-                    { new Pricing() { ProductId = "C", Price = 1m, Threshold = 6 } } // $6 / 6 items = $1.00
+                    new Pricing() { ProductId = "C", Price = 1.25m, Threshold = 0 },
+                    new Pricing() { ProductId = "C", Price = 1m, Threshold = 6 } // $6 / 6 items = $1.00
                 }
             });
 
@@ -55,12 +55,12 @@ namespace CartKata.Tests
             {
                 Id = "D",
                 Prices = new List<Pricing>() {
-                    { new Pricing() { ProductId = "D", Price = 0.15m, Threshold = 0 } }
+                    new Pricing() { ProductId = "D", Price = 0.15m, Threshold = 0 }
                 }
             });
         }
 
-        private void initalize_Requirement_01()
+        private void initialize_Requirement_01()
         {
             _cartService.NewCart();
 
@@ -74,7 +74,7 @@ namespace CartKata.Tests
             _cartService.Scan("A");
         }
 
-        private void initalize_Requirement_02()
+        private void initialize_Requirement_02()
         {
             _cartService.NewCart();
 
@@ -87,7 +87,7 @@ namespace CartKata.Tests
             _cartService.Scan("C");
         }
 
-        private void initalize_Requirement_03()
+        private void initialize_Requirement_03()
         {
             _cartService.NewCart();
 
@@ -131,7 +131,7 @@ namespace CartKata.Tests
         [Fact]
         public void Scan_Requirement_01()
         {
-            initalize_Requirement_01();
+            initialize_Requirement_01();
 
             Assert.Equal(32.40m, _cartService.Total());
         }
@@ -139,7 +139,7 @@ namespace CartKata.Tests
         [Fact]
         public void Scan_Requirement_02()
         {
-            initalize_Requirement_02();
+            initialize_Requirement_02();
 
             Assert.Equal(7.25m, _cartService.Total());
         }
@@ -147,7 +147,7 @@ namespace CartKata.Tests
         [Fact]
         public void Scan_Requirement_03()
         {
-            initalize_Requirement_03();
+            initialize_Requirement_03();
 
             Assert.Equal(15.4m, _cartService.Total());
         }
@@ -162,9 +162,9 @@ namespace CartKata.Tests
         }
 
         [Fact]
-        public void Remove_Cart_Intializer_01_Item_Removes_Discount()
+        public void Remove_Cart_Initializer_01_Item_Removes_Discount()
         {
-            initalize_Requirement_01();
+            initialize_Requirement_01();
 
             _cartService.Remove("A");
 
