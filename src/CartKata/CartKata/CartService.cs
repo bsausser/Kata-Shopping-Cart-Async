@@ -62,7 +62,7 @@ namespace CartKata
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var lastItem = _cart.LastOrDefault(l => l.Item1.Equals(item));
+            Tuple<string, decimal> lastItem = _cart.LastOrDefault(l => l.Item1.Equals(item));
 
             if (lastItem != null)
             {

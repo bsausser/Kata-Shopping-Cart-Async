@@ -1,12 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <CodeAnalysisRuleSet>..\.sonarlint\sonarlintcsharp.ruleset</CodeAnalysisRuleSet>
+    <ProjectGuid>EB22812C-0FE7-4149-87F0-23C3B492B0A3</ProjectGuid>
   </PropertyGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="..\.sonarlint\sonarlint\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
-
 </Project>
