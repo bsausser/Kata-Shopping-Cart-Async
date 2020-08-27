@@ -25,7 +25,7 @@ steps:
     SonarQube: 'SonarQube Service Endpoint'
     scannerMode: 'MSBuild'
     projectKey: 'sonarlint'
-    projectName: 'Prototypes.SonarLint'
+    projectName: 'KataCart.SonarLint'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
