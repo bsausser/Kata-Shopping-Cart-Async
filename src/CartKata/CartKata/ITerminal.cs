@@ -1,13 +1,15 @@
-﻿namespace CartKata
+﻿using System.Threading.Tasks;
+
+namespace CartKata
 {
     /// <summary>
     /// Kata required interface
     /// </summary>
     public interface ITerminal
     {
-        void Scan(string item);
+        Task ScanAsync(string item);
 
-        decimal Total();
+        Task<decimal> TotalAsync();
 
     }
 }

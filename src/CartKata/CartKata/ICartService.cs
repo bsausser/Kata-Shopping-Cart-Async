@@ -1,4 +1,6 @@
-﻿namespace CartKata
+﻿using System.Threading.Tasks;
+
+namespace CartKata
 {
     /// <summary>
     /// Extension of ITerminal 
@@ -14,6 +16,6 @@
         /// Un-Scans for deleting items in the cart 
         /// </summary>
         /// <param name="item">Product Code (Product.Id)</param>
-        public void Remove(string item);
+        public Task RemoveAsync(string item);
     }
 }
