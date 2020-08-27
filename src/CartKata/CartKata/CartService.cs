@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CartKata
 {
@@ -29,25 +30,27 @@ namespace CartKata
         /// Add Product Item to Cart
         /// </summary>
         /// <param name="item">Product Code (Product.Id)</param>
-        public void Scan(string item)
+#pragma warning disable S4457 // Parameter validation in "async"/"await" methods should be wrapped
+        public async Task ScanAsync(string item)
+#pragma warning restore S4457 // Parameter validation in "async"/"await" methods should be wrapped
         {
             if (String.IsNullOrWhiteSpace(item))
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            Product product = _productRepository.Get(item);
-            if(product == null)
+            Product product = await _productRepository.GetAsync(item);
+            if (product == null)
             {
                 throw new ArgumentException($"{nameof(item)} not found using id: {item}");
             }
 
             // add product to cart
-            var cartItem = new Tuple<string, decimal>(product.Id, product.Prices.OrderBy(t => t.Threshold).First().Price);
+            var cartItem = new Tuple<string, decimal>(product.Id, await Task.Run(() => product.Prices.OrderBy(t => t.Threshold).First().Price));
             _cart.Add(cartItem); //first price is no discount or threshold = 0
 
             // check for and apply qualifying discount to cart items
-            updatePricing(product.Id);
+            await updatePricingAsync(product.Id);
 
         }
 
@@ -55,7 +58,9 @@ namespace CartKata
         /// Un-Scans for deleting items in the cart 
         /// </summary>
         /// <param name="item">Product Code (Product.Id)</param>
-        public void Remove(string item)
+#pragma warning disable S4457 // Parameter validation in "async"/"await" methods should be wrapped
+        public async Task RemoveAsync(string item)
+#pragma warning restore S4457 // Parameter validation in "async"/"await" methods should be wrapped
         {
             if (String.IsNullOrWhiteSpace(item))
             {
@@ -69,7 +74,7 @@ namespace CartKata
                 _cart.Remove(lastItem);
 
                 // check for and remove disqualifying discount to cart items
-                updatePricing(lastItem.Item1);
+                await updatePricingAsync(lastItem.Item1);
             }
             else
             {
@@ -81,9 +86,9 @@ namespace CartKata
         /// Discount Business Logic for Scan and Remove methods
         /// </summary>
         /// <param name="productId"></param>
-        private void updatePricing(string productId)
+        private async Task updatePricingAsync(string productId)
         {
-            Product product = _productRepository.Get(productId); //optimistic without a try/catch, however only 2 methods call it and pass a repository object id.
+            Product product = await _productRepository.GetAsync(productId); //optimistic without a try/catch, however only 2 methods call it and pass a repository object id.
 
             //Get product count to be compared to pricing thresholds
             int productCount = _cart.Count(p => p.Item1.Equals(product.Id)); //on remove, this could be zero
@@ -118,9 +123,9 @@ namespace CartKata
         /// Discounts should be applied in Scan, so this becomes a simple Sum operation
         /// </summary>
         /// <returns></returns>
-        public decimal Total()
+        public async Task<decimal> TotalAsync()
         {
-            return _cart.Sum(c => c.Item2);
+            return await Task.Run(() => _cart.Sum(c => c.Item2));
         }
     }
 }

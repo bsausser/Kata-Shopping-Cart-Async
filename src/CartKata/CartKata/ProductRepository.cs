@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CartKata
 {
@@ -15,22 +16,22 @@ namespace CartKata
             Products = new List<Product>();
         }
 
-        public Product Get(string id)
+        public async Task<Product> GetAsync(string id)
         {
-            return Products.FirstOrDefault(p => p.Id.Equals(id));
+            return await Task.Run(() => Products.FirstOrDefault(p => p.Id.Equals(id)));
         }
 
-        public void Add(Product product)
+        public async Task AddAsync(Product product)
         {
-            Products.Add(product);
+            await Task.Run(() => Products.Add(product));
         }
 
-        public Product Update(Product product)
+        Task<Product> IProductRepository.UpdateAsync(Product product)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Save()
+        Task<bool> IProductRepository.SaveAsync()
         {
             throw new System.NotImplementedException();
         }

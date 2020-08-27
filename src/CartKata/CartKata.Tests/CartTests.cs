@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CartKata.Tests
@@ -21,7 +22,7 @@ namespace CartKata.Tests
         private void seedMockProducts(ref IProductRepository mockProducts)
         {
             // A
-            mockProducts.Add(new Product()
+            mockProducts.AddAsync(new Product()
             {
                 Id = "A",
                 Prices = new List<Pricing>() {
@@ -31,7 +32,7 @@ namespace CartKata.Tests
             });
 
             // B
-            mockProducts.Add(new Product()
+            mockProducts.AddAsync(new Product()
             {
                 Id = "B",
                 Prices = new List<Pricing>() {
@@ -41,7 +42,7 @@ namespace CartKata.Tests
 
             // C
             // Curious if the 7th threw 11th are $1.25 each until count = 12 (or a multiple of 6, e.g. % 6)
-            mockProducts.Add(new Product()
+            mockProducts.AddAsync(new Product()
             {
                 Id = "C",
                 Prices = new List<Pricing>() {
@@ -51,7 +52,7 @@ namespace CartKata.Tests
             });
 
             // D
-            mockProducts.Add(new Product()
+            mockProducts.AddAsync(new Product()
             {
                 Id = "D",
                 Prices = new List<Pricing>() {
@@ -60,41 +61,41 @@ namespace CartKata.Tests
             });
         }
 
-        private void initialize_Requirement_01()
+        private async Task initialize_Requirement_01()
         {
             _cartService.NewCart();
 
-            _cartService.Scan("A");
-            _cartService.Scan("B");
-            _cartService.Scan("C");
-            _cartService.Scan("D");
-            _cartService.Scan("A");
-            _cartService.Scan("B");
-            _cartService.Scan("A");
-            _cartService.Scan("A");
+            await _cartService.ScanAsync("A");
+            await _cartService.ScanAsync("B");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("D");
+            await _cartService.ScanAsync("A");
+            await _cartService.ScanAsync("B");
+            await _cartService.ScanAsync("A");
+            await _cartService.ScanAsync("A");
         }
 
-        private void initialize_Requirement_02()
+        private async Task initialize_Requirement_02()
         {
             _cartService.NewCart();
 
-            _cartService.Scan("C");
-            _cartService.Scan("C");
-            _cartService.Scan("C");
-            _cartService.Scan("C");
-            _cartService.Scan("C");
-            _cartService.Scan("C");
-            _cartService.Scan("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("C");
         }
 
-        private void initialize_Requirement_03()
+        private async Task initialize_Requirement_03()
         {
             _cartService.NewCart();
 
-            _cartService.Scan("A");
-            _cartService.Scan("B");
-            _cartService.Scan("C");
-            _cartService.Scan("D");
+            await _cartService.ScanAsync("A");
+            await _cartService.ScanAsync("B");
+            await _cartService.ScanAsync("C");
+            await _cartService.ScanAsync("D");
 
         }
         #endregion
@@ -102,87 +103,87 @@ namespace CartKata.Tests
         #region - Parameter Tests -
 
         [Fact]
-        public void Scan_IsNullOrEmpty_Throws_ArgumentNullException()
+        public async System.Threading.Tasks.Task Scan_IsNullOrEmpty_Throws_ArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => _cartService.Scan(string.Empty));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _cartService.ScanAsync(string.Empty));
         }
 
         [Fact]
-        public void Scan_InvalidProductCode_Throws_ArgumentException()
+        public async System.Threading.Tasks.Task Scan_InvalidProductCode_Throws_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => _cartService.Scan("#3*8"));
+            await Assert.ThrowsAsync<ArgumentException>(() => _cartService.ScanAsync("#3*8"));
         }
 
 
         [Fact]
-        public void Remove_IsNullOrEmpty_Throws_ArgumentNullException()
+        public async System.Threading.Tasks.Task Remove_IsNullOrEmpty_Throws_ArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => _cartService.Scan(string.Empty));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _cartService.ScanAsync(string.Empty));
         }
 
         [Fact]
-        public void Remove_InvalidProductCode_Throws_ArgumentException()
+        public async Task Remove_InvalidProductCode_Throws_ArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => _cartService.Scan("#3*8"));
+            await Assert.ThrowsAsync<ArgumentException>(() => _cartService.ScanAsync("#3*8"));
         }
         #endregion
 
         #region - Requirements Acceptance Tests -
         [Fact]
-        public void Scan_Requirement_01()
+        public async Task Scan_Requirement_01()
         {
-            initialize_Requirement_01();
+            await initialize_Requirement_01();
 
-            Assert.Equal(32.40m, _cartService.Total());
+            Assert.Equal(32.40m, await _cartService.TotalAsync());
         }
 
         [Fact]
-        public void Scan_Requirement_02()
+        public async Task Scan_Requirement_02()
         {
-            initialize_Requirement_02();
+            await initialize_Requirement_02();
 
-            Assert.Equal(7.25m, _cartService.Total());
+            Assert.Equal(7.25m, await _cartService.TotalAsync());
         }
 
         [Fact]
-        public void Scan_Requirement_03()
+        public async Task Scan_Requirement_03()
         {
-            initialize_Requirement_03();
+            await initialize_Requirement_03();
 
-            Assert.Equal(15.4m, _cartService.Total());
+            Assert.Equal(15.4m, await _cartService.TotalAsync());
         }
         #endregion
 
         #region - Gold Plating Tests :) -
         [Fact]
-        public void Empty_Cart_Total_Returns_Zero()
+        public async Task Empty_Cart_Total_Returns_Zero()
         {
             _cartService.NewCart();
-            Assert.Equal(0m, _cartService.Total());
+            Assert.Equal(0m, await _cartService.TotalAsync());
         }
 
         [Fact]
-        public void Remove_Cart_Initializer_01_Item_Removes_Discount()
+        public async Task Remove_Cart_Initializer_01_Item_Removes_Discount()
         {
-            initialize_Requirement_01();
+            await initialize_Requirement_01();
 
-            _cartService.Remove("A");
+            await _cartService.RemoveAsync("A");
 
-            Assert.Equal(31.40m, _cartService.Total());
+            Assert.Equal(31.40m, await _cartService.TotalAsync());
         }
 
         [Fact]
-        public void Remove_Last_Item_Total_Returns_Zero()
+        public async Task Remove_Last_Item_Total_Returns_Zero()
         {
             _cartService.NewCart();
 
-            _cartService.Scan("A");
+            await _cartService.ScanAsync("A");
 
-            Assert.Equal(2m, _cartService.Total());
+            Assert.Equal(2m, await _cartService.TotalAsync());
 
-            _cartService.Remove("A");
+            await _cartService.RemoveAsync("A");
 
-            Assert.Equal(0m, _cartService.Total());
+            Assert.Equal(0m, await _cartService.TotalAsync());
         }
         #endregion
     }

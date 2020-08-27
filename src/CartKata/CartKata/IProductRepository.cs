@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CartKata
 {
@@ -7,13 +8,13 @@ namespace CartKata
     {
         IList<Product> Products { get; }
 
-        Product Get(string id);
+        Task<Product> GetAsync(string id);
 
-        void Add(Product product);
+        Task AddAsync(Product product);
 
-        Product Update(Product product);
+        Task<Product> UpdateAsync(Product product);
         
-        Boolean Save();
+        Task<Boolean> SaveAsync();
 
     }
 }
